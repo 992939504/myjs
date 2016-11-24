@@ -4,17 +4,19 @@ function addLoadEvent(func) {
     //立刻执行函数
 	var oldonlad = window.onload;
 	if (typeof window.onload != 'function') {
-		window.onload = func
+		window.onload = func;
 	} else {
-		window.onload = function {
-			oldonlad
-			func
+		window.onload = function() {
+			oldonlad();
+			func();
 	}
 	}
 	}
 
 function insertAfter(newElement,targetElement) {
-    ild == targetElement) {
+    //把新元素添加到目标元素之后的函数
+	var parent = targetElement.parentNode;
+	if (parent.lastChild == targetElement) {
 		parent.addendChild(newElement);
 	} else {
 		parent.insertBefore(newElement,targetElement.nextSibling);
@@ -52,4 +54,25 @@ function moveElement(elementID,final_x,final_y,interval) {
     elem.style.top = ypos + "px";
     var repeat = "moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
     elem.movement = setTimeout(repeat,interval);
+}
+//下一个变量的元素节点
+function getNextElement(node) {
+    if (node.nodeType === 1) {
+    return node;
+    }
+    if (node.nextSibling) {
+        return getNextElement(node.nextSibling)
+    }
+    return null;
+}
+function addClass(element,value) {
+    //新增一个class到目标元素
+    if (!element.className) {
+        element.className = value;
+    } else {
+        newClassName = element.className;
+        newClassName += " ";
+        newClassName += value;
+        element.className = newClassName;
+    }
 }
